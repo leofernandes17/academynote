@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AcademyNote - Área para cadastro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .cadastro-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    .cadastro-container img {
+      width: 180px;
+      margin-bottom: 10px;
+    }
+
+    .cadastro-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .cadastro-container input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .cadastro-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #155ab5;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .cadastro-container button:hover {
+      background-color: #155ab5;
+    }
+
+    .cadastro-container p {
+      margin-top: 15px;
+    }
+
+    .cadastro-container a {
+      color: #155ab5;
+      text-decoration: none;
+    }
+
+    .cadastro-container a:hover {
+      text-decoration: underline;
+    }
+
+    .erro {
+      color: red;
+      font-size: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="cadastro-container">
+    <img src="../../img/img/logo.png" alt="logo">
+    
+    <h2>Crie sua conta</h2>
+    
+    <form id="formCadastro">
+      <input type="text" id="nome" placeholder="Nome completo" required>
+      <input type="email" id="email" placeholder="E-mail" required>
+      <input type="text" id="cpf" placeholder="CPF" maxlength="11" required>
+      <input type="password" id="senha" placeholder="Senha" required>
+      <input type="password" id="confirmarSenha" placeholder="Confirmar senha" required>
+      <p id="erroSenha" class="erro">Senha deve ter no mínimo 7 caracteres, 1 letra maiúscula e 1 caractere especial</p>
+      <p id="erroConfirmacao" class="erro">As senhas não coincidem</p>
+      <button type="submit">Cadastrar</button>
+    </form>
+    <p>Já tem conta? <a href="login.html">Entrar</a></p>
+  </div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD2SkI0eYPwHR9sOD5FQ98A4L3gHwEwSbU",
+      authDomain: "academynote-17df7.firebaseapp.com",
+      projectId: "academynote-17df7",
+      storageBucket: "academynote-17df7.appspot.com",
+      messagingSenderId: "1022962857419",
+      appId: "1:1022962857419:web:0f9142d1df5000718d324e",
+      measurementId: "G-GNC2XQB7ZJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+
+    const form = document.getElementById("formCadastro");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+      const cpf = document.getElementById("cpf").value;
+      const senha = document.getElementById("senha").value;
+      const confirmarSenha = document.getElementById("confirmarSenha").value;
+
+      const erroSenha = document.getElementById("erroSenha");
+      const erroConfirmacao = document.getElementById("erroConfirmacao");
+
+      const regexSenha = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{7,}$/;
+
+      let valido = true;
+
+      if (!regexSenha.test(senha)) {
+        erroSenha.style.display = "block";
+        valido = false;
+      } else {
+        erroSenha.style.display = "none";
+      }
+
+      if (senha !== confirmarSenha) {
+        erroConfirmacao.style.display = "block";
+        valido = false;
+      } else {
+        erroConfirmacao.style.display = "none";
+      }
+
+      if (valido) {
+        try {
+
+          await addDoc(collection(db, "usuarios"), {
+            nome,
+            email,
+            senha,
+            CPF: cpf
+          });
+
+          alert("Usuário cadastrado com sucesso!");
+          
+          window.location.href = "index.html";
+
+          form.reset();
+        } catch (e) {
+          alert("Erro ao cadastrar: " + e);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

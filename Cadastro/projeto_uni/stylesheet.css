@@ -1,0 +1,161 @@
+/* Estilo para o canvas do fundo */
+#interactive-background {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; 
+}
+
+/* Destaque de tarefa próxima */
+.upcoming-task {
+  border: 2px solid #1e90ff;
+  background-color: #0f1b2e; 
+  animation: pulse-border 1.5s infinite alternate;
+}
+
+@keyframes pulse-border {
+  from {
+    border-color: #1e90ff;
+  }
+  to {
+    border-color: #4f9cf9;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #0d0d0d; /* fundo preto suave */
+  color: #e6e6e6; /* texto claro */
+  display: flex;
+  height: 100vh;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 28px;
+  width: 100%;
+  padding: 28px;
+}
+
+.box {
+  background: #1a1a1a; /* caixa escura */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  border: 1px solid #2c2c2c;
+}
+
+.form {
+  margin: 0px 20px 0px 0px;
+  padding: 20px 20px 30px 10px;
+}
+
+.calendar {
+  text-align: center;
+  padding: 40px;
+}
+
+.calendar h2 {
+  margin: 0 0 10px;
+  color: #ffffff;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.day {
+  font-size: 22px;
+  padding: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #262626;
+  transition: 0.3s;
+  color: #d9d9d9;
+}
+
+.day:hover {
+  background: #333333;
+}
+
+.day.active {
+  background: #1e90ff;
+  color: #fff;
+  font-weight: bold;
+}
+
+.tasks {
+  margin-top: 20px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: #141414;
+  border-left: 4px solid #1e90ff;
+  color: #f0f0f0;
+}
+
+.form input,
+.form textarea,
+.form button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: #e6e6e6;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+}
+
+.form input:focus,
+.form textarea:focus {
+  border-color: #1e90ff;
+  box-shadow: 0 0 6px rgba(30,144,255,0.6);
+  outline: none;
+}
+
+.form button {
+  background: #1e90ff;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form button:hover {
+  background: #005bb5;
+}
+
+.notifications {
+  margin-top: 20px;
+}
+
+.notification {
+  background: #0f1b2e;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  border-left: 4px solid #1e90ff;
+  color: #e6e6e6;
+}
+
+h2 {
+  font-weight: 800;
+  font-size: 30px;
+  color: #ffffff;
+}

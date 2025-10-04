@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AcademyNote</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+
+    .login-container img {
+      width: 180px;
+      margin-bottom: 10px;
+    }
+
+    .login-container h2 {
+      margin-bottom: 30px;
+      color: #1e73e8;
+      font-size: 22px;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: #1e73e8;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .login-container button:hover {
+      background: #155ab5;
+    }
+
+    .signup-link {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .signup-link a {
+      color: #1e73e8;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="../../img/img/logo.png" alt="logo">
+
+    <h2>Login</h2>
+    
+    <form id="formLogin">
+      <input type="email" id="email" placeholder="E-mail" required>
+      <input type="password" id="senha" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+
+    <div class="signup-link">
+      Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se</a>
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyD2SkI0eYPwHR9sOD5FQ98A4L3gHwEwSbU",
+      authDomain: "academynote-17df7.firebaseapp.com",
+      projectId: "academynote-17df7",
+      storageBucket: "academynote-17df7.appspot.com",
+      messagingSenderId: "1022962857419",
+      appId: "1:1022962857419:web:0f9142d1df5000718d324e",
+      measurementId: "G-GNC2XQB7ZJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const form = document.getElementById("formLogin");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+
+      try {
+        // tentativa de realizar o login com o e-mail e senha fornecidos
+        await signInWithEmailAndPassword(auth, email, senha);
+
+        // se o login der certo, redireciona para a página funcional
+        alert("Login bem-sucedido!");
+        window.location.href = "index.html";
+      } catch (error) {
+        alert("Erro ao fazer login: " + error.message);
+      }
+    });
+  </script>
+</body>
+</html>

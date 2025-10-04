@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planner</title>
+  <link rel="stylesheet" href="./stylesheet.css">
+</head>
+<body>
+  <canvas id="interactive-background"></canvas>
+  <div class="container">
+
+    <!-- Coluna esquerda -->
+    <div>
+      <div class="box calendar">
+        <h2 id="monthYear"></h2>
+        <div class="days" id="days"></div>
+      </div>
+
+      <div class="box tasks">
+        <h3>Tarefas do dia</h3>
+        <div id="taskList"></div>
+      </div>
+    </div>
+
+    <!-- Coluna direita -->
+    <div>
+      <div class="box form">
+        <h3>Nova Tarefa</h3>
+        <input type="text" id="taskTitle" placeholder="Título da tarefa">
+        <input type="date" id="taskDate">
+        <input type="time" id="taskTime">
+        <textarea id="taskDetails" placeholder="Detalhes"></textarea>
+        <button id="saveTask">Salvar</button>
+      </div>
+
+      <div class="box notifications">
+        <h3>Notificações</h3>
+        <div id="notifications"></div>
+      </div>
+    </div>
+
+  </div>
+  <script src="./script.js"></script>
+  <script src="./fundo.js"></script>
+</body>
+</html>
